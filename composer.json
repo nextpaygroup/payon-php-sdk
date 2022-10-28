@@ -1,5 +1,5 @@
 {
-    "name": "payon/paymentgateway",
+    "name": "nextpaygroup/payon-php-sdk",
     "type": "library",
     "description": "Package hỗ trợ Merchant tích hợp API thanh toán",
     "keywords": ["payon","payment"],

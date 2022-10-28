@@ -10,14 +10,14 @@
 # Cài đặt và loading
 Cài bằng composer
 ```sh
-composer require payon/paymentgateway
+composer require nextpaygroup/payon-php-sdk
 ```
 Include vào file PHP
 ```php
 <?php
 use Payon\PaymentGateway\PayonHelper;
 //or require
-require 'path/to/paymentgateway/src/PayonHelper.php';
+require 'path/to/payon-php-sdk/src/PayonHelper.php';
 ```
 # Code mẫu
 - Các thanh số truyền vào hàm PayonHelper
