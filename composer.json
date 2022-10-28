@@ -4,7 +4,7 @@
     "description": "Package hỗ trợ Merchant tích hợp API thanh toán",
     "keywords": ["payon","payment"],
     "license": "MIT",
-    "homepage": "https://github.com/payon-sdk",
+    "homepage": "https://github.com/nextpaygroup/payon-php-sdk",
     "autoload": {
         "psr-4": {
             "Payon\\PaymentGateway\\": "src/"
