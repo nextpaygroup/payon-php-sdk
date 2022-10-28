@@ -1,0 +1,22 @@
+{
+    "name": "payon/paymentgateway",
+    "type": "library",
+    "description": "Package hỗ trợ Merchant tích hợp API thanh toán",
+    "keywords": ["payon","payment"],
+    "license": "MIT",
+    "homepage": "https://github.com/payon-sdk",
+    "autoload": {
+        "psr-4": {
+            "Payon\\PaymentGateway\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "devteampayon",
+            "email": "kythuat@payon.vn"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0"
+    }
+}
