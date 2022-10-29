@@ -41,7 +41,7 @@ class PayonHelper
     function CreateOrderPaynow($data)
     {
         $data['merchant_id'] = (int)$this->mc_id;
-        return $this->buildPayment("createOrderPaynow", $data);
+        return $this->BuildPayment("createOrderPaynow", $data);
     }
 
     /**
@@ -54,7 +54,7 @@ class PayonHelper
         $data = array(
             'merchant_request_id' => $merchant_request_id,
         );
-        return $this->buildPayment("checkPayment", $data);
+        return $this->BuildPayment("checkPayment", $data);
     }
 
     /**
@@ -64,7 +64,7 @@ class PayonHelper
     function GetBankInstallment()
     {
         $data = array();
-        return $this->buildPayment("getBankInstallmentV2", $data);
+        return $this->BuildPayment("getBankInstallmentV2", $data);
     }
 
     /**
@@ -72,10 +72,10 @@ class PayonHelper
      * @param $data
      * @return mixed
      */
-    function getFee($data)
+    function GetFee($data)
     {
         $data['merchant_id'] = (int)$this->mc_id;
-        return $this->buildPayment("getFeeInstallmentv2", $data);
+        return $this->BuildPayment("getFeeInstallmentv2", $data);
     }
 
     /**
@@ -83,10 +83,10 @@ class PayonHelper
      * @param $data
      * @return mixed
      */
-    function createOrderInstallment($data)
+    function CreateOrderInstallment($data)
     {
         $data['merchant_id'] = (int)$this->mc_id;
-        return $this->buildPayment("createOrderInstallment", $data);
+        return $this->BuildPayment("createOrderInstallment", $data);
     }
 
     
@@ -101,7 +101,7 @@ class PayonHelper
             "service_code" => 'PAYNOW_QRLOCALBANK_DYNAMIC',
             "method_code" => 'LOCALBANK'
         );
-        return $this->buildPayment("getQrBankCode", $data);
+        return $this->BuildPayment("getQrBankCode", $data);
     }
 
     /**
@@ -115,10 +115,25 @@ class PayonHelper
         $data['service_code'] = 'PAYNOW_QRLOCALBANK_DYNAMIC';
         $data['method_code'] = 'LOCALBANK';
         $data['currency'] = 'VND';
-        return $this->buildPayment("createQRCode", $data);
+        return $this->BuildPayment("createQRCode", $data);
     }
 
-    function buildPayment($fnc, $param)
+    /**
+     * Validate Notify PayOn
+     * @param $data
+     * @param $checksum
+     */
+    function ValidateNotify($data, $checksum)
+    {
+        $checksum_en = md5($this->app_id . json_encode($data) . $this->secret_key);
+        if($checksum_en === $checksum)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    function BuildPayment($fnc, $param)
     {
         $data = json_encode($param);
         $crypto = new PayonEncrypto($this->secret_key);

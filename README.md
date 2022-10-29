@@ -119,7 +119,7 @@ $data = [
     'cycles' => 3, // Type Int: Số kỳ (tháng) trả góp.
     'card_type' => "VISA" //Type String: Loại thẻ thanh toán:VISA, MASTERCARD, JCB.
 ];
-$response = $payon->getFee($data);
+$response = $payon->GetFee($data);
 if($response['error_code'] = "00"){
     // Call API thành công, tiếp tục xử lý
 } else {
@@ -148,14 +148,14 @@ $data = [
     "customer_email" => 'tranvana@payon.vn', //Type String: Địa chỉ email khách hàng
     "customer_mobile" => '0123456789', //Type String: Số điện thoại khách hàng
 ];
-$response = $payon->createOrderInstallment($data);
+$response = $payon->CreateOrderInstallment($data);
 if($response['error_code'] = "00"){
     // Call API thành công, tiếp tục xử lý
 } else {
     //Có lỗi xảy ra check lỗi trả về
 }
 ```
-- Kiểm tra giao dịch trước khi thực hiện cập nhật trạng thái cho đơn hàng
+- Kiểm tra giao dịch để cập nhật trạng thái đơn hàng
 ```php
 <?php
 
@@ -168,6 +168,20 @@ if($response['error_code'] = "00"){
     // Call API thành công, tiếp tục xử lý
 } else {
     //Có lỗi xảy ra check lỗi trả về
+}
+```
+- Kiểm tra reqest PayOn trả về qua url_notify
+```php
+use Payon\PaymentGateway\PayonHelper;
+
+$payon = new PayonHelper($mc_id, $app_id, $secret_key, $url, $http_auth, $http_auth_pass);
+$parameters = json_decode($req->get_body());  //Request được trả về qua url
+$response = $payon->ValidateNotify($parameters->data, $parameters->checksum); //Type Boolean
+if($response){
+    // Request hợp lệ và tiếp tục xử lý
+    // Call $payon->CheckPayment($merchant_request_id) để lấy trạng thái đơn hàng mới nhất sau đó sẽ xử lý cập nhật trạng thái đơn hàng
+} else {
+    // Request không hợp lệ
 }
 ```
 - Bypass SSL_VERIFYPEER
