@@ -27,7 +27,9 @@ require 'path/to/payon-php-sdk/src/PayonHelper.php';
     + $url: URL_API - Đường dẫn API
     + $http_auth: MC_AUTH_USER - Tên Auth basic
     + $http_auth_pass: MC_AUTH_PASS - Mật khẩu Http Auth basic
+    
 - Thanh toán ngay
+
 ```php
 <?php
 
@@ -51,8 +53,11 @@ if($response['error_code'] = "00"){
 } else {
     //Có lỗi xảy ra check lỗi trả về
 }
+
 ```
+
 - Lấy danh sách ngân hàng hỗ trợ thanh toán bằng QR-Code
+
 ```php
 <?php
 
@@ -65,8 +70,11 @@ if($response['error_code'] = "00"){
 } else {
     //Có lỗi xảy ra check lỗi trả về
 }
+
 ```
+
 - Tạo yêu cầu thanh toán bằng QR-Code
+
 ```php
 <?php
 
@@ -91,8 +99,11 @@ if($response['error_code'] = "00"){
 } else {
     //Có lỗi xảy ra check lỗi trả về
 }
+
 ```
+
 - Lấy danh sách ngân hàng hỗ trợ trả góp
+
 ```php
 <?php
 
@@ -105,8 +116,11 @@ if($response['error_code'] = "00"){
 } else {
     //Có lỗi xảy ra check lỗi trả về
 }
+
 ```
+
 - Thông tin phí trả góp
+
 ```php
 <?php
 
@@ -125,8 +139,11 @@ if($response['error_code'] = "00"){
 } else {
     //Có lỗi xảy ra check lỗi trả về
 }
+
 ```
+
 - Tạo yêu cầu thanh toán trả góp
+
 ```php
 <?php
 
@@ -154,8 +171,11 @@ if($response['error_code'] = "00"){
 } else {
     //Có lỗi xảy ra check lỗi trả về
 }
+
 ```
+
 - Kiểm tra giao dịch để cập nhật trạng thái đơn hàng
+
 ```php
 <?php
 
@@ -169,9 +189,14 @@ if($response['error_code'] = "00"){
 } else {
     //Có lỗi xảy ra check lỗi trả về
 }
+
 ```
-- Kiểm tra reqest PayOn trả về qua url_notify
+
+- Kiểm tra Request PayOn trả về qua url_notify
+
 ```php
+<?php
+
 use Payon\PaymentGateway\PayonHelper;
 
 $payon = new PayonHelper($mc_id, $app_id, $secret_key, $url, $http_auth, $http_auth_pass);
@@ -183,8 +208,11 @@ if($response){
 } else {
     // Request không hợp lệ
 }
+
 ```
+
 - Bypass SSL_VERIFYPEER
+
 ```php
 <?php
 
