@@ -1,8 +1,8 @@
 {
     "name": "nextpaygroup/payon-php-sdk",
     "type": "library",
-    "description": "Package hỗ trợ Merchant tích hợp API thanh toán",
-    "keywords": ["payon","payment"],
+    "description": "PayOn SDK is the payment solution for web/app support: ATM, QR-code, Visa/Mastercard/JCB ...",
+    "keywords": ["payon","payment","nextpay","vimo"],
     "license": "MIT",
     "homepage": "https://github.com/nextpaygroup/payon-php-sdk",
     "autoload": {
