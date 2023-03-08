@@ -128,9 +128,9 @@ use Payon\PaymentGateway\PayonHelper;
 
 $payon = new PayonHelper($mc_id, $app_id, $secret_key, $url, $http_auth, $http_auth_pass);
 $data = [
-    "amount" => 10000, //Type Int: Giá trị đơn hàng. Đơn vị: VNĐ
+    "amount" => 10000000, //Type Int: Giá trị đơn hàng. Đơn vị: VNĐ
     "bank_code" => "TCB", //Type String: Mã ngân hàng thanh toán.
-    'cycles' => 3, // Type Int: Số kỳ (tháng) trả góp.
+    'cycles' => [3,6,9], // Type Array: truyền 1 mảng các kỳ thanh toán dạng số.
     'card_type' => "VISA" //Type String: Loại thẻ thanh toán:VISA, MASTERCARD, JCB.
 ];
 $response = $payon->GetFee($data);
