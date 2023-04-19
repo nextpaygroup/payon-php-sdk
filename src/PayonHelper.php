@@ -13,6 +13,7 @@ class PayonHelper
     private $http_auth;
     private $http_auth_pass;
     public $ssl_verifypeer;
+    public $ref_code;
     public function __construct(
         string $mc_id, 
         string $app_id, 
@@ -42,6 +43,18 @@ class PayonHelper
     {
         $data['merchant_id'] = (int)$this->mc_id;
         return $this->BuildPayment("createOrderPaynow", $data);
+    }
+
+    /**
+     * Tạo yêu cầu thanh toán truyền thêm phương thức thanh toán
+     * @param $data
+     * @return mixed
+     */
+    function createOrderV2($data){
+        $data['merchant_id'] = (int)$this->mc_id;
+        $data['service_type_code'] = 'PAYNOW';
+        $data['currency'] = 'VND';
+        return $this->BuildPayment("createOrder", $data);
     }
 
     /**
@@ -131,6 +144,14 @@ class PayonHelper
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return mixed
+     */
+    function getServices(){
+        $data = [];
+        return $this->BuildPayment("getServices", $data);
     }
 
     function BuildPayment($fnc, $param)

@@ -37,7 +37,7 @@ use Payon\PaymentGateway\PayonHelper;
 
 $payon = new PayonHelper($mc_id, $app_id, $secret_key, $url, $http_auth, $http_auth_pass);
 $data = [
-    "merchant_request_id" => $merchant_request_id  //Type String: Mã đơn hàng Merchant được tạo từ yêu cầu thanh toán
+    "merchant_request_id" => $merchant_request_id,  //Type String: Mã đơn hàng Merchant được tạo từ yêu cầu thanh toán
     "amount" => 10000, //Type Int: Giá trị đơn hàng. Đơn vị: VNĐ
     "description" => 'Thanh toán đơn hàng KH Tran Van A', //Type String: Mô tả thông tin đơn hàng
     "url_redirect" => 'https://payon.vn/', //Type String: Đường link chuyển tiếp sau khi thực hiện thanh toán thành công
@@ -82,7 +82,7 @@ use Payon\PaymentGateway\PayonHelper;
 
 $payon = new PayonHelper($mc_id, $app_id, $secret_key, $url, $http_auth, $http_auth_pass);
 $data = [
-    "merchant_request_id" => $merchant_request_id  //Type String: Mã đơn hàng Merchant được tạo từ yêu cầu thanh toán
+    "merchant_request_id" => $merchant_request_id,  //Type String: Mã đơn hàng Merchant được tạo từ yêu cầu thanh toán
     "amount" => 10000, //Type Int: Giá trị đơn hàng. Đơn vị: VNĐ
     "description" => 'Thanh toán đơn hàng KH Tran Van A', //Type String: Mô tả thông tin đơn hàng
     "bank_code" => "TCB", //Type String: Mã ngân hàng thanh toán.
@@ -151,7 +151,7 @@ use Payon\PaymentGateway\PayonHelper;
 
 $payon = new PayonHelper($mc_id, $app_id, $secret_key, $url, $http_auth, $http_auth_pass);
 $data = [
-    "merchant_request_id" => $merchant_request_id  //Type String: Mã đơn hàng Merchant được tạo từ yêu cầu thanh toán
+    "merchant_request_id" => $merchant_request_id,  //Type String: Mã đơn hàng Merchant được tạo từ yêu cầu thanh toán
     "amount" => 10000, //Type Int: Giá trị đơn hàng. Đơn vị: VNĐ
     "description" => 'Thanh toán đơn hàng KH Tran Van A', //Type String: Mô tả thông tin đơn hàng
     "bank_code" => "DAB", //Type String: Mã ngân hàng thanh toán.
@@ -166,6 +166,54 @@ $data = [
     "customer_mobile" => '0123456789', //Type String: Số điện thoại khách hàng
 ];
 $response = $payon->CreateOrderInstallment($data);
+if($response['error_code'] = "00"){
+    // Call API thành công, tiếp tục xử lý
+} else {
+    //Có lỗi xảy ra check lỗi trả về
+}
+
+```
+
+- Lấy danh sách phương thức thanh toán được hỗ trợ
+
+```php
+<?php
+
+use Payon\PaymentGateway\PayonHelper;
+
+$payon = new PayonHelper($mc_id, $app_id, $secret_key, $url, $http_auth, $http_auth_pass);
+$response = $payon->getServices();
+if($response['error_code'] = "00"){
+    // Call API thành công, tiếp tục xử lý
+} else {
+    //Có lỗi xảy ra check lỗi trả về
+}
+
+```
+    
+- Tạo yêu cầu thanh toán V2
+
+```php
+<?php
+
+use Payon\PaymentGateway\PayonHelper;
+
+$payon = new PayonHelper($mc_id, $app_id, $secret_key, $url, $http_auth, $http_auth_pass);
+$data = [
+    'service_code' => 'PAYNOW_ATM_ON', //Type String: Mã dịch vụ thanh toán được lấy từ $payon->getServices()['data']['service']['code']. VD: $payon->getServices()['data'][1]['service'][1]['code']
+    'method_code' => 'ATM', //Type String: Mã phương thức thanh toán được lấy từ $payon->getServices()['data']['service']['support']['code']. VD: $payon->getServices()['data'][1]['service'][1]['support']['code']
+    "merchant_request_id" => $merchant_request_id,  //Type String: Mã đơn hàng Merchant được tạo từ yêu cầu thanh toán
+    "amount" => 10000, //Type Int: Giá trị đơn hàng. Đơn vị: VNĐ
+    'bank_code' => 'TCB', //Type String: Mã phương thức thanh toán được lấy từ $payon->getServices()['data']['service']['support']['banks']['code']
+    "description" => 'Thanh toán đơn hàng KH Tran Van A', //Type String: Mô tả thông tin đơn hàng
+    "url_redirect" => 'https://payon.vn/', //Type String: Đường link chuyển tiếp sau khi thực hiện thanh toán thành công
+    "url_notify" => 'https://payon.vn/notify', //Type String: Đường link thông báo kết quả đơn hàng
+    "url_cancel" => 'https://payon.vn/cancel', //Type String: Đường link chuyển tiếp khi khách hàng hủy thanh toán
+    "customer_fullname" => 'Tran Van A', //Type String: Họ và tên khách hàng
+    "customer_email" => 'tranvana@payon.vn', //Type String: Địa chỉ email khách hàng
+    "customer_mobile" => '0123456789', //Type String: Số điện thoại khách hàng
+];
+$response = $payon->createOrderV2($data);
 if($response['error_code'] = "00"){
     // Call API thành công, tiếp tục xử lý
 } else {
