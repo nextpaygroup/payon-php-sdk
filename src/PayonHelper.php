@@ -30,7 +30,11 @@ class PayonHelper
         $this->http_auth = $http_auth;
         $this->http_auth_pass = $http_auth_pass;
         $this->ssl_verifypeer = $ssl_verifypeer;
-        $url_base = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+        $url_base = sprintf(
+            '%s://%s',
+            (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http',
+            isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (gethostname() ?: 'localhost')
+        );
         $this->ref_code = 'MCAPI-LV-'. $url_base;
     }
 
