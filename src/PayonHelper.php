@@ -203,7 +203,7 @@ class PayonHelper
         );
         $response = curl_exec($curl);
         $resultStatus = curl_getinfo($curl);
-
+        curl_close($curl);
         if($resultStatus['http_code'] == 200 && isset($response) )
         {
             $response = json_decode($response, true);
